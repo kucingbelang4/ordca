@@ -24,7 +24,7 @@ io.on('connection', function(socket){
       console.log('msg')
       console.log(msg)
     io.emit('chat message', msg);
-    io.send('chat message', msg);
+
   });
 
   io.emit('some event', { for: 'everyone' });
