@@ -1,34 +1,38 @@
-var http = require('http').createServer(handler)
-var io = require('socket.io')(3000)
-var fs = require('fs')
+var app = require("express")();
+var http = require("http").Server(app);
+var io = require('socket.io').listen(http);
 
-http.listen(8080)
+app.get('/', function(req, res){
+  res.sendfile('client/index.html');
+});
 
-function handler(req, res){
-
-	console.log('Running')
-
-	fs.readFile(__dirname+'/client/index.html' , function(err, data){
-
-		if(err){
-			res.writeHead(500)
-			return res.end('Error loading index.html')
-		}
-
-		res.writeHead(200)
-		console.log(data)
-		res.end(data)
-
-	})
-
-}
+app.get('/js/jquery.js', function(req, res){
+  res.sendfile('client/js/jquery.js');
+});
 
 io.on('connection', function(socket){
+    
+  console.log('a user connected');
+  
+  socket.broadcast.emit('hi');
+  
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+  
+  socket.on('chat message', function(msg){
+      console.log('msg')
+      console.log(msg)
+    io.emit('chat message', msg);
+    io.send('chat message', msg);
+  });
 
-	socket.emit('news', {hello: 'world'})
-	
-	socket.on('my other events', function(data){
-		console.log(data)
-	})
+  io.emit('some event', { for: 'everyone' });
 
-})
+});
+
+http.listen(process.env.PORT, function(){
+    
+    console.log('listening on *: '+process.env.IP+':'+process.env.PORT);
+  
+});
