@@ -1,38 +1,13 @@
-var app = require("express")();
-var http = require("http").Server(app);
-var io = require('socket.io').listen(http);
+var route = require("./dar_modules/route/route"),
+    server = require("http").Server(route),
+    chat = require('./dar_modules/chat/app');
 
-app.get('/', function(req, res){
-  res.sendfile('client/index.html');
-});
+// socket
+chat.start(server);
 
-app.get('/js/jquery.js', function(req, res){
-  res.sendfile('client/js/jquery.js');
-});
-
-io.on('connection', function(socket){
-    
-  console.log('a user connected');
-  
-  socket.broadcast.emit('hi');
-  
-  socket.on('disconnect', function(){
-    io.sockets.emit('user disconnected');
-  });
-  
-  socket.on('chat message', function(msg){
-      console.log('msg')
-      console.log(msg)
-    io.sockets.emit('chat message', msg);
-
-  });
-
-  io.emit('some event', { for: 'everyone' });
-
-});
-
-http.listen(process.env.PORT, function(){
+// server start
+server.listen(process.env.PORT, function(){
     
     console.log('listening on *: '+process.env.IP+':'+process.env.PORT);
   
-});
+})
