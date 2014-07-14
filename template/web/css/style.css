@@ -850,6 +850,23 @@ p.para{
 	.user_img {
 		margin: 2% 0;
 	}
+	
+	#messages li a .talk-bubble{
+		
+		float:none!important;
+		margin: 5px!important;
+		width:100%!important;
+		
+	}
+	
+	#messages li a{
+		
+		width:100%!important;
+		height:auto;
+		display:block;
+		
+	}
+	
 }
 @media only screen and (max-width: 640px){
 	.wrap{

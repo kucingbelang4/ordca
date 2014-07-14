@@ -26,7 +26,7 @@ $(document).ready(function(){
       
       chat.on('message', function(msg){
         
-          var html = '<li><a href="#"><div style="float:left" class="talk-bubble tri-right round border left-top"><div class="talktext"><p>'+msg+'</p></div></div></a></li>'          
+          var html = '<a href="#"><div style="float:left" class="talk-bubble tri-right round border left-top"><div class="talktext"><p>'+msg+'</p></div></div></a>'          
 
           $('#messages').append($('<li>').html(html));
           
