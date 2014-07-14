@@ -6,19 +6,13 @@ var app = express();
 
 app.get('/', function(req, res){
     
-    res.sendfile('client/index.html');
+    res.sendfile('template/web/index.html');
   
 });
 
-app.get('/js/jquery.js', function(req, res){
+app.get('/*', function(req, res){
     
-    res.sendfile('client/js/jquery.js');
-  
-});
-
-app.get('/js/app.js', function(req, res){
-    
-    res.sendfile('client/js/app.js');
+    res.sendfile('template/web'+req.url);
   
 });
 

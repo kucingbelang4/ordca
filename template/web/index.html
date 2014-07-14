@@ -3,8 +3,8 @@
 <title>Ordca</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all">
+<!--<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
+--><link href="css/style.css" rel="stylesheet" type="text/css" media="all">
 <!-- bxSlider Javascript file -->
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.bxslider.min.js"></script>
@@ -16,6 +16,7 @@
 <link href="css/jquery.nouislider.css" rel="stylesheet">
 
 <script src="js/jquery.nouislider.js"></script>
+<script src="/socket.io/socket.io.js"></script>
 
 <script>
 				$("#slider").noUiSlider({
@@ -47,16 +48,10 @@
 			</div>
 		</div>
 
-		<div class="grid1_of_2" style="background:;width: 43.33333%; max-height:500px; overflow-y:scroll;">
+		<div id="scroller" class="grid1_of_2" style="background:;width: 43.33333%; max-height:500px; overflow-y:scroll;">
 
-			<ul>
-				<li><a href="#">
-					<div style="float:left" class="talk-bubble tri-right round border left-top">
-					<div class="talktext">
-					<p>And finally on the right flush at the top. Uses .round .border and .right-top</p>
-					</div>
-					</div>
-				</a></li>
+			<ul id="messages">
+				
 
 				<li><a href="#">
 					<div style="float:right" class="talk-bubble tri-right round border right-top">
@@ -126,8 +121,8 @@
 		<div class="grid1_of_2" style="width: 43.33333%;">
 
 			<div class="contact_form">
-				<form>
-					<input type="text" name="userMsg" value="">
+				<form id="chat">
+					<input id="m" type="text" name="userMsg" value="">
 					<input type="submit" value="send" class="bg1">
 				</form>
 			</div>
@@ -147,6 +142,8 @@
 	</div> -->
 </div>
 </div>
+
+<script src="/js/app.js" type="text/javascript"></script>
 
 </body>
 	
