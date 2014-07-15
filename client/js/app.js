@@ -5,6 +5,7 @@ $(document).ready(function(){
       news = io.connect('/news'),
       users = io.connect('/users');
       
+      
       users.emit('ready');
       
       users.on('list', function(data){
@@ -19,13 +20,21 @@ $(document).ready(function(){
         $('#m').val('');
         
         return false;
-        
+         
       });  
       
       chat.on('message', function(msg){
           $('#messages').append($('<li>').text(msg));
       });
       
+      // connect notif
+      chat.on('connect', function(data){
+        
+        console.log('connection chat established');
+        
+      });
+      
+      // error notif
       pm.on('error', function(data) {
           console.error('pm Unable to connect Socket.IO', data);
       })

@@ -1,24 +1,28 @@
-var express = require("express");
+'use strict';
+
 var path = require("path");
-var app = express();
 
-// route app
-
-app.get('/', function(req, res){
+module.exports = function(app) {
     
-    res.sendfile('template/web/index.html');
-  
-});
+    // route app
 
-app.get('/*', function(req, res){
+    app.get('/', function(req, res){
+        
+        res.sendfile('template/web/index.html');
+      
+    });
     
-    res.sendfile('template/web'+req.url);
-  
-});
+    app.get('/*', function(req, res){
+        
+        res.sendfile('template/web'+req.url);
+      
+    });
+    
+    return app;
+    
+}
 
-module.exports = app; 
-
-module.exports.path = function(){
+module.exports.path = function(path){
     
     return path.dirname(module.parent.filename);
     
