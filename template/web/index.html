@@ -7,6 +7,7 @@
 --><link href="css/style.css" rel="stylesheet" type="text/css" media="all">
 <!-- bxSlider Javascript file -->
 <script src="js/jquery.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
 <script src="js/jquery.bxslider.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <link href="css/jquery.bxslider.css" rel="stylesheet">
@@ -28,6 +29,18 @@
 					}
 				});
 				</script>
+				
+	<script type="text/javascript">
+	
+		$(document).ready(function(){
+			
+			var meD = JSON.parse($.cookie('me')); 
+			
+			$('#me-username').html(meD.username);
+			
+		});
+		
+	</script>
 
 </head>
 <body>
@@ -42,9 +55,9 @@
 				<img src="images/pic1.jpg" alt="">
 			</div>
 			<div class="grid_text">
-				<h3 class="style">Imam Tauhid</h3>
-				<h4 class="style">Sleeper</h4>
-				<p class="para">Lorem Ipsum is simply dummy text of the printing and typesetting industry.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin <span>standard dummy</span> text ever since the 1500s.</p>
+				<h3 id="me-username" class="style"></h3>
+				<h4 id="me-job" class="style"></h4>
+				<p id="me-decription" class="para"></p>
 			</div>
 		</div>
 

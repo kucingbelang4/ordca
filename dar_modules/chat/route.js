@@ -1,30 +1,60 @@
+'use strict';
+
 module.exports.forward = function (io, iUser){
     
     io.set('authorization', function (handshake, callback) {
-
+        
         callback(null, true);
     
     });
     
     io.of('/chat').on('connection', function(socket){
         
-       console.log('/chat comes in');
+        console.log('/chat comes in');
        
-       socket.on('message', function(msg){
+        socket.on('message', function(msg){
+         
+            var temp = {
+                
+                socketId: socket.id,
+                message: msg
+                
+            }
+         
+            io.of('/chat').emit('message', temp);
     
-        io.of('/chat').emit('message', msg);
+        });
     
-       });
-        
     });
     
     io.of('/users').on('connection', function(socket){
         
+        console.log(socket)
+        
         console.log('/users comes in');
         
-        socket.on('ready', function(){
+        socket.on('ready', function(token){
+            
+           var auth = 'success';
+           
+           var userData = iUser.getUser(token);
+            
+            if(userData === undefined){ 
+               
+               auth = 'failure';
+               
+            }
+            
+            iUser.setUserToSocket(token, socket.id)
         
-            //iUser.getUsers(socket, io.of('/users'))
+            var emitData = {
+                
+                auth: auth,
+                socketId: socket.id
+                
+            }
+        
+            socket.emit('start', emitData);
          
         });
         

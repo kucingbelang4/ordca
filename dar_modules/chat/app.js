@@ -3,8 +3,7 @@
 var ioObj = require('socket.io'),
     path = require("path"),
     connect = require('connect'),
-    passport = require('passport'),
-    iUser = require("./user"),
+    iUser = require("./../user/index"),
     routeIo = require("./route");
 
 module.exports.start = function(http){
