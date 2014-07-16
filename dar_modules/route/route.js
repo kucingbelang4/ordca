@@ -36,6 +36,12 @@ module.exports = function(app) {
       
     });
     
+    app.get('/logout', function(req, res){
+        
+        res.sendfile('template/web/logout.html');
+      
+    });
+    
     app.get('/*', function(req, res){
         
         res.sendfile('template/web'+req.url);

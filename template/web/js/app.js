@@ -14,7 +14,7 @@ $(document).ready(function(){
         
         console.log(':: all Set!');
         
-        if(idata.auth == 'failure') window.location.href = '/login';
+        if(idata.auth == 'failure') window.location.href = '/login#fail';
         
         if(socketId === undefined) socketId = idata.socketId;
         

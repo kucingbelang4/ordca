@@ -1,8 +1,14 @@
 $(document).ready(function(){
     
+    function getHashValue(key) {
+      return window.location.hash;
+    }
+    
     (function(){
         
-        if($.cookie('me')) window.location.href= '/'
+        if($.cookie('me') !== null){ 
+            if(window.location.hash !== '#fail') window.location.href= '/'
+        }
         
     })()
     
