@@ -30,7 +30,7 @@ $(document).ready(function(){
             
             if(idata.sockets.indexOf(data.socketId) > -1) pos = 'left';
           
-            var html = '<a href="#"><div style="float:'+pos+'" class="talk-bubble tri-right round border '+pos+'-top"><div class="talktext"><p>'+data.message+'</p></div></div></a>'          
+            var html = '<a href="#"><div style="float:'+pos+'" class="wrapword talk-bubble tri-right round border '+pos+'-top"><div class="talktext"><p>'+data.message+'</p></div></div></a>'          
   
             $('#messages').append($('<li>').html(html));
             
