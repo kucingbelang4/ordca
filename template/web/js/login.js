@@ -1,5 +1,11 @@
 $(document).ready(function(){
     
+    (function(){
+        
+        if($.cookie('me')) window.location.href= '/'
+        
+    })()
+    
     var ajax = function(data){
      
         return $.ajax({
@@ -11,8 +17,7 @@ $(document).ready(function(){
         })
         
     }
-    
-    
+
     var getMe = function(token){
         
         console.log('getMe exe')

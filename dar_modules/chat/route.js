@@ -50,7 +50,8 @@ module.exports.forward = function (io, iUser){
             var emitData = {
                 
                 auth: auth,
-                socketId: socket.id
+                socketId: socket.id,
+                sockets: iUser.getSocketsUser(token)
                 
             }
         

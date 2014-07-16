@@ -36,11 +36,37 @@ module.exports.getUserFromSocket = function(socketId){
     
 }
 
-module.exports.setUserToSocket = function(id, socketId){
+module.exports.setUserToSocket = function(idE, socketId){
     
-    mapSocket[socketId] = id;
+    mapSocket[socketId] = idE;
+    
+    var id = getHash(idE);
+    
+    if(id) {
+        
+        if(users[id].sockets === undefined) users[id].sockets = []; 
+        
+        users[id].sockets.push(socketId);
+        
+    }
     
     return socketId;
+    
+}
+
+module.exports.getSocketsUser = function(token){
+    
+    var id =  getHash(token);
+    
+    var list = []; 
+    
+    if(id){
+        
+        if(users[id].sockets !== undefined) list = users[id].sockets;
+        
+    }
+    
+    return list;
     
 }
 
