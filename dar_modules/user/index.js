@@ -26,6 +26,12 @@ var decodeId = function(crypt){
         
 }
 
+var revealerLiteral = function(obj, callback){
+    
+    if(!obj) return false;
+    
+}
+
 module.exports.getUserFromSocket = function(socketId){
     
     var token = mapSocket[socketId];
@@ -70,15 +76,21 @@ module.exports.getSocketsUser = function(token){
     
 }
 
-module.exports.getUsers = function(){
+module.exports.getUsers = function(encoded){
+
+    console.log('getUSer method')
     
-    var list = {};
+    var id = getHash(encoded);
     
-    users.forEach(function(key, value){
-       
-       list.push(value); 
+    var list = [];
+    
+    for(var key in users){
         
-    });
+        if(key !== id) list.push(users[key])
+        
+    }
+    
+    console.log(list)
     
     return list;
     
@@ -89,6 +101,30 @@ module.exports.getUser = function(encoded){
     var id = getHash(encoded);
     
     return users[id];
+    
+}
+
+module.exports.removeSocketFromUser = function(socketId){
+    
+    var encode = mapSocket[socketId];
+    
+    var id = getHash(encode);
+    
+    if(users[id]){ 
+        
+        console.log(users[id].sockets);
+        
+        var index = users[id].sockets.indexOf(socketId);
+        
+        if (index > -1) {
+            users[id].sockets.splice(index, 1);
+        }
+        
+    }
+    
+    delete mapSocket[socketId];
+    
+    console.log('deleted');
     
 }
 

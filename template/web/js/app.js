@@ -4,7 +4,7 @@ $(document).ready(function(){
       chat = io.connect('/chat'),
       news = io.connect('/news'),
       users = io.connect('/users'),
-      socketId = undefined;
+      mySocketId = undefined;
       
       var scroller = document.getElementById('scroller');
       
@@ -14,15 +14,21 @@ $(document).ready(function(){
         
         console.log(':: all Set!');
         
-        if(idata.auth == 'failure') window.location.href = '/login#fail';
+        if(idata.auth == 'failure') {
+          
+          console.log(idata.auth)
+          
+          window.location.href = '/login#fail';
+          
+        }
         
-        if(socketId === undefined) socketId = idata.socketId;
+        if(mySocketId === undefined) mySocketId = idata.socketId;
         
         chat.on('message', function(data){
           
             var pos = 'right';
             
-            if(idata.sockets.indexOf(socketId) > -1) pos = 'left';
+            if(idata.sockets.indexOf(data.socketId) > -1) pos = 'left';
           
             var html = '<a href="#"><div style="float:'+pos+'" class="talk-bubble tri-right round border '+pos+'-top"><div class="talktext"><p>'+data.message+'</p></div></div></a>'          
   

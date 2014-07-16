@@ -34,7 +34,11 @@
 	
 		$(document).ready(function(){
 			
-			var meD = JSON.parse($.cookie('me')); 
+			var cok = $.cookie('me');
+			
+			if(cok === undefined) window.location.href='/login#fail';
+			
+			var meD = JSON.parse(cok); 
 			
 			$('#me-username').html(meD.username);
 			

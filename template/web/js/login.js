@@ -6,8 +6,8 @@ $(document).ready(function(){
     
     (function(){
         
-        if($.cookie('me') !== null){ 
-            if(window.location.hash !== '#fail') window.location.href= '/'
+        if(!($.cookie('me'))){ 
+            if(window.location.hash !== '#fail') window.location.href= '/';
         }
         
     })()

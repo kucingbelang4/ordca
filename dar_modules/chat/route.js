@@ -29,8 +29,6 @@ module.exports.forward = function (io, iUser){
     
     io.of('/users').on('connection', function(socket){
         
-        console.log(socket)
-        
         console.log('/users comes in');
         
         socket.on('ready', function(token){
@@ -38,6 +36,9 @@ module.exports.forward = function (io, iUser){
            var auth = 'success';
            
            var userData = iUser.getUser(token);
+           
+            // console.log('all user')
+            // console.log(iUser.getUsers(token));
             
             if(userData === undefined){ 
                
@@ -54,6 +55,11 @@ module.exports.forward = function (io, iUser){
                 sockets: iUser.getSocketsUser(token)
                 
             }
+            
+            console.log('socket.id');
+            console.log(socket.id);
+            console.log('list ');
+            console.log(iUser.getSocketsUser(token));
         
             socket.emit('start', emitData);
          
@@ -62,6 +68,8 @@ module.exports.forward = function (io, iUser){
         socket.on('disconnect', function(){
          
             console.log('/user disconnect');
+            
+            iUser.removeSocketFromUser(socket.id)
              
             //iUser.getUsers(socket, io.of('/users'));
              
