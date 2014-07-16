@@ -56,25 +56,38 @@ module.exports.forward = function (io, iUser){
                 
             }
             
-            console.log('socket.id');
-            console.log(socket.id);
-            console.log('list ');
-            console.log(iUser.getSocketsUser(token));
+            var listData = {
+                
+                users: function(){
+                    
+                    return iUser.getUsers(token)
+                    
+                },
+                
+            }
         
             socket.emit('start', emitData);
-         
-        });
-        
-        socket.on('disconnect', function(){
-         
-            console.log('/user disconnect');
             
-            iUser.removeSocketFromUser(socket.id)
-             
-            //iUser.getUsers(socket, io.of('/users'));
-             
-            //iUser.users.splice(iUser.users.indexOf(socket), 1);
+            socket.emit('list', listData);
+            
+            socket.broadcast.emit('newUser');
+            
+            socket.on('disconnect', function(){
+         
+                console.log('/user disconnect');
+                
+                iUser.removeSocketFromUser(socket.id);
+                
+                socket.broadcast.emit('disconnect');
           
+            });
+            
+            socket.on('refresh', function() {
+                
+                socket.emit('list', listData.users());
+                
+            })
+         
         });
         
     })

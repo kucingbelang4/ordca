@@ -8,6 +8,20 @@ $(document).ready(function(){
       
       var scroller = document.getElementById('scroller');
       
+      var refreshList = function(data){
+        
+        var temp = '';
+      
+        for(var a in data){
+          
+          temp += '<li><a href="#"><i class="user1"><img src="images/user1.jpg" alt=""></i><span>'+data[a].username+'</span></a></li>';
+          
+        }
+        
+        $(document.body).find('ul.user_img').html(temp);
+        
+      }
+      
       users.emit('ready', $.cookie('auth'));
       
       users.on('start', function(idata){
@@ -15,8 +29,6 @@ $(document).ready(function(){
         console.log(':: all Set!');
         
         if(idata.auth == 'failure') {
-          
-          console.log(idata.auth)
           
           window.location.href = '/login#fail';
           
@@ -38,11 +50,27 @@ $(document).ready(function(){
             
         });
         
+        users.emit('refresh');
+        
+      });
+      
+      users.on('disconnect', function(data){
+        
+        users.emit('refresh');
+        
+      });
+      
+      users.on('newUser', function(data){
+        
+        users.emit('refresh');
+        
       });
       
       users.on('list', function(data){
+        
+          console.log('data list exec')
           
-          console.log(data);
+          refreshList(data)
           
       });
       
