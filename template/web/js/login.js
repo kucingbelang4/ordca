@@ -20,6 +20,7 @@ $(document).ready(function(){
           type: data.type,
           dataType: "json",
           data: data
+          
         })
         
     }
@@ -52,6 +53,14 @@ $(document).ready(function(){
     }
     
     $('#auth').on('submit', function(){
+        
+        if(!$('#username').val()) {
+            
+            alert('fill ur username !')
+            
+            return false
+            
+        } 
         
         var username = $('#username').val();
         
