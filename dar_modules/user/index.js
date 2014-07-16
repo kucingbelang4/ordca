@@ -50,9 +50,17 @@ module.exports.setUserToSocket = function(idE, socketId){
     
     if(id) {
         
-        if(users[id].sockets === undefined) users[id].sockets = []; 
+        if(Object.prototype.hasOwnProperty.call(users[id], 'sockets')){
         
-        users[id].sockets.push(socketId);
+            if(users[id].sockets === undefined) users[id].sockets = []; 
+            
+            users[id].sockets.push(socketId);
+
+        }else{
+         
+            console.log('this is hell')   
+            
+        }
         
     }
     
@@ -90,8 +98,6 @@ module.exports.getUsers = function(encoded){
         
     }
     
-    console.log(list)
-    
     return list;
     
 }
@@ -112,19 +118,25 @@ module.exports.removeSocketFromUser = function(socketId){
     
     if(users[id]){ 
         
-        console.log(users[id].sockets);
+        if(Object.prototype.hasOwnProperty.call(users[id], 'sockets')){
         
-        var index = users[id].sockets.indexOf(socketId);
+            var index = users[id].sockets.indexOf(socketId);
+            
+            if (index > -1) {
+                
+                users[id].sockets.splice(index, 1);
+            
+                if(users[id].sockets.length <= 0) delete users[id] 
+                
+            }
+            
+            delete mapSocket[socketId];
+            
+            console.log('deleted');
         
-        if (index > -1) {
-            users[id].sockets.splice(index, 1);
         }
         
     }
-    
-    delete mapSocket[socketId];
-    
-    console.log('deleted');
     
 }
 
