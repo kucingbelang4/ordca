@@ -38,6 +38,9 @@ $(document).ready(function(){
         
         chat.on('message', function(data){
           
+          console.log('message')
+          console.log(data)
+          
             var pos = 'right';
             
             if(idata.sockets.indexOf(data.socketId) > -1) pos = 'left';

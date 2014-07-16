@@ -65,6 +65,9 @@ module.exports.forward = function (io, iUser){
                 },
                 
             }
+            
+            console.log('emitData');
+            console.log(emitData);
         
             socket.emit('start', emitData);
             

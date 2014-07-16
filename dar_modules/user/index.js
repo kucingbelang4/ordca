@@ -53,14 +53,14 @@ module.exports.setUserToSocket = function(idE, socketId){
         if(Object.prototype.hasOwnProperty.call(users[id], 'sockets')){
         
             if(users[id].sockets === undefined) users[id].sockets = []; 
-            
-            users[id].sockets.push(socketId);
 
         }else{
          
-            console.log('this is hell')   
+            users[id]['sockets'] = [];
             
         }
+        
+        users[id].sockets.push(socketId);
         
     }
     
