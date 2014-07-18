@@ -1,60 +1,82 @@
 $(document).ready(function(){
+  
+    var _users = {
       
-      var pm = io.connect('/private_message'),
-      chat = io.connect('/chat'),
-      news = io.connect('/news'),
-      users = io.connect('/users'),
-      mySocketId = undefined;
+      "other": [],
+      
+      "sockets": []
+      
+    }
+      
+      var pm = io.connect('/private_message', {
+        
+        query: 'token='+$.cookie('auth')
+        
+      }),
+      chat = io.connect('/chat', {
+        
+        query: 'token='+$.cookie('auth')
+        
+      }),
+      news = io.connect('/news', {
+        
+        query: 'token='+$.cookie('auth')
+        
+      }),
+      users = io.connect('/users', {
+        
+        query: 'token='+$.cookie('auth')
+        
+      }),
+      mySocketId;
       
       var scroller = document.getElementById('scroller');
       
       var refreshList = function(data){
         
-        var temp = '';
+        var temp = '',
+            tempU = []
       
         for(var a in data){
+          
+          tempU.push(data[a].username);
           
           temp += '<li><a href="#"><i class="user1"><img src="images/user1.jpg" alt=""></i><span>'+data[a].username+'</span></a></li>';
           
         }
         
+        _users.other = tempU;
+        
         $(document.body).find('ul.user_img').html(temp);
         
       }
       
-      users.emit('ready', $.cookie('auth'));
+      var redirect = function(){
+        
+        window.location.href = 'logout';
+        
+      }
+        
+      users.emit('refresh');
       
-      users.on('start', function(idata){
-        
-        console.log(':: all Set!');
-        
-        if(idata.auth == 'failure') {
-          
-          window.location.href = '/login#fail';
-          
-        }
-        
-        if(mySocketId === undefined) mySocketId = idata.socketId;
-        
-        chat.on('message', function(data){
-          
-          console.log('message')
-          console.log(data)
-          
-            var pos = 'right';
-            
-            if(idata.sockets.indexOf(data.socketId) > -1) pos = 'left';
-          
-            var html = '<a href="#"><div style="float:'+pos+'" class="wrapword talk-bubble tri-right round border '+pos+'-top"><div class="talktext"><p>'+data.message+'</p></div></div></a>'          
-  
-            $('#messages').append($('<li>').html(html));
-            
-            scroller.scrollTop = scroller.scrollHeight;
-            
-        });
+      users.on('newUser', function(data){
         
         users.emit('refresh');
         
+      });
+      
+      users.on('sockets', function(data) {
+ 
+        _users.sockets = data.sockets;
+        
+      });
+      
+      users.on('list', function(data){
+        
+          console.log('data list exec')
+          
+          refreshList(data);
+          
       });
       
       users.on('disconnect', function(data){
@@ -63,17 +85,21 @@ $(document).ready(function(){
         
       });
       
-      users.on('newUser', function(data){
+      chat.on('message', function(data){
         
-        users.emit('refresh');
+        console.log('message')
         
-      });
+        var pos = 'right';
+        
+        console.log(_users.sockets.indexOf(data.socketId));
+        
+        if(_users.sockets.indexOf(data.socketId) > -1) pos = 'left';
       
-      users.on('list', function(data){
+        var html = '<a href="#"><div style="float:'+pos+'" class="wrapword talk-bubble tri-right round border '+pos+'-top"><div class="talktext"><p>'+data.message+'</p></div></div></a>'          
+
+        $('#messages').append($('<li>').html(html));
         
-          console.log('data list exec')
-          
-          refreshList(data)
+        scroller.scrollTop = scroller.scrollHeight;
           
       });
       
@@ -89,15 +115,19 @@ $(document).ready(function(){
       
       pm.on('error', function(data) {
           console.error('pm Unable to connect Socket.IO', data);
+          redirect();
       })
       chat.on('error', function(data) {
           console.error('chat Unable to connect Socket.IO', data);
+          redirect();
       })
       users.on('error', function(data) {
           console.error('users Unable to connect Socket.IO', data);
+          redirect();
       })
       news.on('error', function(data) {
           console.error('news Unable to connect Socket.IO', data);
+          redirect();
       })
 
 });

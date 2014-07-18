@@ -27,7 +27,7 @@ $(document).ready(function(){
 
     var getMe = function(token){
         
-        console.log('getMe exe')
+        console.log(':: login.js :: 30 :: getMe')
         
         var url = '/me?token='+$.cookie('auth');
         
@@ -76,7 +76,7 @@ $(document).ready(function(){
             if(data.response == 'success') {
                 
                 $.cookie('auth', data.data);
-                
+         
                 getMe();
                 
             }

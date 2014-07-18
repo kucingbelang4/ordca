@@ -17,9 +17,6 @@ module.exports = function(app) {
         
         var meData = users.getUser(req.query['token']);
         
-        console.log('meData')
-        console.log(meData)
-        
         res.json({
 
             data: JSON.stringify(meData),
@@ -59,6 +56,9 @@ module.exports = function(app) {
         var data = req.query;
         
         var hash = users.setUser(token.toString(), data);
+        
+        console.log(':: route.js express :: 63 :: data login')
+        console.log(users.getUser(hash))
         
         res.json({
 
