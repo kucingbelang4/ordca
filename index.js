@@ -1,5 +1,11 @@
 'use strict';
 
+// var portV = process.env.PORT || 7500;
+// var ipV = process.env.IP || '127.0.0.1';
+
+var portV = process.env.PORT;
+var ipV = process.env.IP;
+
 var express = require("express"),
     app = express();
 
@@ -12,8 +18,8 @@ var expressSetup = require("./setting").express(express, app),
 chat.start(server);
 
 // server start
-server.listen(process.env.PORT, function(){
-    
-    console.log('listening on *: '+process.env.IP+':'+process.env.PORT);
-  
+server.listen(portV, ipV , function(){
+
+    console.log('listening on *: '+ipV+':'+portV);
+
 });
