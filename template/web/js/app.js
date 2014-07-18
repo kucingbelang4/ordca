@@ -115,11 +115,11 @@ $(document).ready(function(){
 
       chat.on('error', function(data) {
           console.error('chat Unable to connect Socket.IO', data);
-          redirect();
+          //redirect();
       })
       users.on('error', function(data) {
           console.error('users Unable to connect Socket.IO', data);
-          redirect();
+          //redirect();
       })
 
 
