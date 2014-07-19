@@ -39,6 +39,20 @@ $(document).ready(function(){
       
     },show = function(){
       $('.dim').hide();
+    };
+    
+    var salvage = function(){
+      
+      block();
+      
+      setTimeout(function(){ 
+        
+        $('.dim .warn p').html('Sorry for your Inconvenient');
+        $('.dim .warn p').css('color', 'white');
+        $('.dim .warn a').show();
+        
+      }, 15000);
+      
     }
     
     _vis(function(){
@@ -168,7 +182,7 @@ $(document).ready(function(){
     })
     users.on('error', function(data) {
         console.error('users Unable to connect Socket.IO', data);
-        block();
+        salvage();
         //redirect();
     })
     news.on('error', function(data) {
