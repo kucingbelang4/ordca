@@ -33,6 +33,14 @@ $(document).ready(function(){
       
     }
     
+    var block = function(){
+ 
+      $('.dim').show();
+      
+    },show = function(){
+      $('.dim').hide();
+    }
+    
     _vis(function(){
       
         if(_vis()) pushNotification(_message.notification.default, false)
@@ -97,7 +105,9 @@ $(document).ready(function(){
     });
     
     users.on('sockets', function(data) {
-
+      
+      show();
+      
       _users.sockets = data.sockets;
       
     });
@@ -158,6 +168,7 @@ $(document).ready(function(){
     })
     users.on('error', function(data) {
         console.error('users Unable to connect Socket.IO', data);
+        block();
         //redirect();
     })
     news.on('error', function(data) {
