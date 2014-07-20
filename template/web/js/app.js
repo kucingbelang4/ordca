@@ -1,4 +1,4 @@
-$(document).ready(function(){
+var c = function(){
   
     var _users = {
       
@@ -163,7 +163,15 @@ $(document).ready(function(){
     });
     
     $("#chat").submit(function(e){
-      
+
+
+        if($('#m').val() == ('')){
+
+            alert ('Message Empty')
+
+            return false;
+
+        }
         chat.emit('message', $('#m').val());
         
         $('#m').val('');
@@ -190,4 +198,6 @@ $(document).ready(function(){
         //redirect();
     })
 
-});
+};
+
+$(document).ready(c);
