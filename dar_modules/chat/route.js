@@ -1,5 +1,7 @@
 'use strict';
 
+var _room = 'global';
+
 module.exports.forward = function (io, iUser){
     
     // handshake verification 
@@ -27,6 +29,8 @@ module.exports.forward = function (io, iUser){
     io.of('/users').on('connection', function(socket){
         
         console.log(':: route.js socketio :: 29 :: on /users connection');
+        
+        socket.join(_room);
         
         iUser.setUserToSocket(socket.handshake.token, socket.id);
         

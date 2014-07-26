@@ -19,7 +19,9 @@ $(document).ready(function(){
 
       },
 
-    }
+    };
+    
+    var _room = 'global';
 
     var pushNotification = function(title, unread){
 

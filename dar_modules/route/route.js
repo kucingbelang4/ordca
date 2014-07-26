@@ -51,11 +51,11 @@ module.exports = function(app) {
         
         console.log('received')
         
-        var token = Math.random();
+        var token = Math.random(),
         
-        var data = req.query;
+        data = req.query,
         
-        var hash = users.setUser(token.toString(), data);
+        hash = users.setUser(token.toString(), data);
         
         console.log(':: route.js express :: 63 :: data login')
         console.log(users.getUser(hash))

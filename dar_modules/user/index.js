@@ -1,22 +1,24 @@
 var crypto = require('crypto'),
 
+    rainbow = require('./rainbow'), 
+
     hash = {},
 
     users = {},
 
-    mapSocket = {};
+    mapSocket = {},
+    
+    decodeId = function(crypt){
 
-var decodeId = function(crypt){
-
-    var h = crypto.createHash('md5').update(crypt).digest("hex");
-
-    return h;
+    return crypto.createHash('md5').update(crypt).digest("hex");
 
 },
 
     setHash = function(encoded, value){
 
         hash[encoded] = value;
+        
+        return encoded;
 
 },
 
@@ -24,9 +26,9 @@ var decodeId = function(crypt){
 
         return hash[encoded];
 
-}
+},
 
-var revealerLiteral = function(obj, callback){
+    revealerLiteral = function(obj, callback){
 
     if(!obj) return false;
 
@@ -146,7 +148,7 @@ module.exports.setUser = function(id, value){
 
     var encoded = decodeId(id);
 
-    setHash(encoded, id);
+    rainbow.setRainbow(setHash(encoded, id));
 
     return encoded;
 
