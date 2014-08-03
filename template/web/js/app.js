@@ -20,8 +20,6 @@ $(document).ready(function(){
       },
 
     };
-    
-    var _room = 'global';
 
     var pushNotification = function(title, unread){
 
@@ -36,9 +34,7 @@ $(document).ready(function(){
     }
 
     var block = function(){
-
       $('.dim').show();
-
     },show = function(){
       $('.dim').hide();
     };
